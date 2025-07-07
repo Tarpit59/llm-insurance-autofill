@@ -9,6 +9,8 @@ This web app allows users to upload insurance photo report PDFs and a .docx temp
 │
 ├── insurance_pipeline/
 │
+├── sample/
+│
 ├── app.py
 │
 ├── .env
@@ -21,6 +23,9 @@ This web app allows users to upload insurance photo report PDFs and a .docx temp
 ## Files Details
 ### insurance_pipeline/
 - Core pipeline code (extraction, OCR, LLM, etc.)
+
+### sample/
+- Sample input and output files are available.
 
 ### app.py
 - Streamlit app for UI interaction.
@@ -131,6 +136,25 @@ streamlit run app.py
 └────────────────────────────┘
 
 ```
+
+## Performance Considerations
+
+**Note on Performance:** Please be aware that there is a **5-second delay** after each request to the Large Language Model (LLM) when retrieving field data. This is an intentional pause implemented to manage API usage.
+
+- insurance_pipeline/qa_utils.py : Modify in this file.
+
+```python
+def extract_all_fields(field_descriptions, vector_store, ...):
+
+    final_results = {}
+       
+    # ... rest of the code
+
+        time.sleep(5)
+
+    return final_results
+```
+
 
 ## Acknowledgements
 
