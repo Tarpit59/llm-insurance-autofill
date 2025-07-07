@@ -52,7 +52,7 @@ insurance_pipeline/
 
 
 ## Running the Pipeline
-- Make sure all required dependencies are installed and `.env` is configured.
+- Make sure all required dependencies are installed, `.env` is configured and FOLDER_PATH, TEMPLATE_PATH and OUTPUT_PATH are configured in main.py.
 
 ### Run main.py
 ```bash
