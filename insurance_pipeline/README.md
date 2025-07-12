@@ -1,31 +1,24 @@
 
-# Insurance Template Filler Pipeline
+# 🧾 Insurance Template Filler Pipeline
 
-This project automates the extraction of key-value data from multi-page photo report PDFs and fills them into a .docx insurance template using OCR, vector search, reranking, and LLM-based reasoning.
+This project automates the extraction of key-value data from multi-page photo report PDFs and fills them into a `.docx` insurance template using OCR, vector search, reranking, and LLM-based reasoning.
 
-## Directory Structure
+## 📁 Directory Structure
 ```plaintext
 .
 insurance_pipeline/
-│
-├── main.py
-│
-├── config.py
-│
-├── ocr_utils.py
-│
-├── vector_store.py
-│
-├── qa_utils.py
-│
-├── docx_utils.py
-│
-├── field_meaning_generator.py
-│
-└── README.md
+|
+├── main.py                     # Main pipeline orchestrator
+├── config.py                   # Loads API keys and configuration from .env
+├── ocr_utils.py                # OCR utilities using PaddleOCR
+├── vector_store.py             # Embedding and Pinecone vector DB logic
+├── qa_utils.py                 # RAG-based QA pipeline with reranking and LLM
+├── docx_utils.py               # Template filling and conversion to PDF
+├── field_meaning_generator.py  # LLM-based field context understanding
+└── README.md                   # This documentation
 ```
 
-## Files Details
+## 📄 File Descriptions
 ### main.py
 - The main entry point — orchestrates the entire pipeline.
 
@@ -45,29 +38,31 @@ insurance_pipeline/
 - Replaces placeholders in `.docx` templates with the extracted values and can convert final document to PDF.
 
 ### field_meaning_generator.py
-- Infers missing field descriptions from the `.docx` template using LLM context.
-
-### README.md
-- Pipeline Documentation.
+- Uses LLM to infer the meaning or description of fields directly from the template.
 
 
-## Running the Pipeline
-- Make sure all required dependencies are installed, `.env` is configured and FOLDER_PATH, TEMPLATE_PATH and OUTPUT_PATH are configured in main.py.
+## 🚀 Running the Pipeline
 
-### Run main.py
+1. ✅ Make sure:
+  - Dependencies from `requirements.txt` are installed.
+  - `.env` is properly configured with required API keys.
+  - Input paths (`FOLDER_PATH`, `TEMPLATE_PATH`, `OUTPUT_PATH`) are set inside main.py.
+
+2. ▶️ Run the pipeline:
 ```bash
 python -m insurance_pipeline.main
 ```
-This will:
-- Load and OCR the PDF photo reports.
-- Chunk and embed the text using Google Generative AI.
-- Store embeddings in Pinecone.
-- Understand field meaning and get descriptions about fields using LLM reasoning.
-- Extract field values using similarity search + reranking + LLM reasoning.
-- Fill those values into the `.docx` insurance template.
-- Convert the output .docx to PDF using ConvertAPI.
 
-## Acknowledgements
+#### What it does:
+- ✅ Loads and OCRs all report pages.
+- ✅ Chunk and embed texts with Google Generative AI Embeddings.
+- ✅ Stores vector embeddings in Pinecone.
+- ✅ Extracts field meanings from the `.docx` template using LLM-based reasoning.
+- ✅ Extract field values using similarity search + reranking + LLM reasoning..
+- ✅ Populates the `.docx` insurance template with the extracted values.
+- ✅ Optionally converts the filled `.docx` into a final PDF using ConvertAPI.
+
+## 🙏 Acknowledgements
 
  - [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
  - [LangChain RAG](https://python.langchain.com/v0.2/docs/tutorials/rag/)
