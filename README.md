@@ -1,46 +1,20 @@
 
-# Insurance Template Filler – Web App
+# 🧾 Insurance Template Filler – Web App
 
-This web app allows users to upload insurance photo report PDFs and a .docx template. The system uses OCR + AI to extract relevant information and automatically fills the template. The final result can be downloaded as a filled PDF or viewed directly in the browser.
+This web app allows users to upload insurance photo report PDFs and a `.docx` template. The system uses OCR + AI to extract relevant information and automatically fills the template. The final result can be downloaded as a filled PDF or viewed directly in the browser.
 
-## Directory Structure
+## 📁 Project Structure
 ```plaintext
 .
-│
-├── insurance_pipeline/
-│
-├── sample/
-│
-├── app.py
-│
-├── .env
-│
-├── requirements.txt
-│
-└── README.md
+├── insurance_pipeline/     # Core pipeline (OCR, extraction, LLMs, etc.)
+├── sample/                 # Sample input/output files
+├── app.py                  # Streamlit app for UI interaction
+├── .env                    # API keys
+├── requirements.txt        # Dependencies list
+└── README.md               # Project documentation
 ```
 
-## Files Details
-### insurance_pipeline/
-- Core pipeline code (extraction, OCR, LLM, etc.)
-
-### sample/
-- Sample input and output files are available.
-
-### app.py
-- Streamlit app for UI interaction.
-
-### .env
-- API keys and environment variables.
-
-### requirements.txt
-- Required packages to run web application.
-
-### README.md
-- Project documentation.
-
-
-## Setup Instructions
+## 🚀 Setup Instructions
 
 1. Create & Activate Virtual Environment:
 ```bash
@@ -49,19 +23,30 @@ source task_3/bin/activate   # macOS/Linux
 task_3\Scripts\activate      # Windows
 ```
 
-2. Install paddlepaddle-gpu:
+2. Install PaddleOCR:
+
+If you have a GPU and CUDA 11.8:
+
 ```bash
 python -m pip install paddlepaddle-gpu==3.1.0 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/
 ```
-- Make sure your system has CUDA 11.8. If not, you can alternatively install `paddlepaddle-cpu`.
-- For more information visit [here](https://www.paddlepaddle.org.cn/en/install/quick?docurl=/documentation/docs/en/develop/install/pip/linux-pip_en.html).
 
-3. Install other dependencies required to run application:
+If not, use the CPU version:
+
+```bash
+pip install paddlepaddle
+```
+- More installation details: [PaddlePaddle Installation Guide](https://www.paddlepaddle.org.cn/en/install/quick?docurl=/documentation/docs/en/develop/install/pip/linux-pip_en.html).
+
+3. Install Other Dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Make sure required api keys are not empty in .env file:
+4. Add API Keys to `.env` File:
+
+- Make sure your `.env` file includes:
+
 ```bash
 OPENROUTER_API_KEY = "openrouter_api_key"
 GOOGLE_API_KEY = "google_api_key"
@@ -71,13 +56,13 @@ GROQ_API_KEY = "groq_api_key"
 CONVERTAPI_API_KEY = "convertapi_api_key"
 ```
 
-5. Run the App:
+5. Run the Application:
 ```bash
 streamlit run app.py
 ```
-- This will launch a local web server and open the app in your browser.
+- A local server will start and open the app in your default browser.
 
-## Pipeline Flow (Text-Based Diagram)
+## 🧠 Pipeline Overview
 ```text
 ┌────────────────────────────┐
 │        Upload Inputs       │
@@ -137,26 +122,22 @@ streamlit run app.py
 
 ```
 
-## Performance Considerations
+## ⏱️ Performance Note
 
-**Note on Performance:** Please be aware that there is a **5-second delay** after each request to the Large Language Model (LLM) when retrieving field data. This is an intentional pause implemented to manage API usage.
+To manage LLM API usage and rate limits, a delay is added between field queries. You can modify this in: `insurance_pipeline/qa_utils.py`
 
 - insurance_pipeline/qa_utils.py : Modify in this file.
 
 ```python
-def extract_all_fields(field_descriptions, vector_store, ...):
-
-    final_results = {}
-       
-    # ... rest of the code
-
-        time.sleep(5)
-
-    return final_results
+def extract_all_fields(...):
+    ...
+    time.sleep(5)  # Delay between LLM requests
 ```
 
+## 📸 Sample Files
+- You can find sample `.docx` templates and insurance report PDFs in the `sample/` directory for testing.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
  - [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
  - [LangChain RAG](https://python.langchain.com/v0.2/docs/tutorials/rag/)
